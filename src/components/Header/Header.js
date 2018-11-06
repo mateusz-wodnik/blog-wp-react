@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <header className={styles.container}>
         <Link to="/">
-          <img src={`http://localhost/wp-json/theme/logo`} alt="logo"/>
+          <img className={styles.logo} src={`http://localhost/wp-json/theme/logo`} alt="logo"/>
         </Link>
       </header>
     )
