@@ -7,6 +7,8 @@ import TopBar from './components/TopBar/TopBar';
 import Featured from './components/Featured/Featured';
 import Slider from './components/Slider/Slider';
 import Posts from './components/Posts/Posts';
+import About from './widgets/About/About';
+import Tags from './widgets/Tags/Tags';
 
 class App extends Component {
   render() {
@@ -18,6 +20,8 @@ class App extends Component {
         <Slider />
         <Featured />
         <Posts />
+        <About />
+        <Tags />
       </div>
     );
   }
