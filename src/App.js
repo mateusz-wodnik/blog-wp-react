@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import styles from './App.module.sass';
 import MainNavigation from './components/Navigation/MainNavigation';
 import Header from './components/Header/Header';
@@ -10,6 +10,7 @@ import Posts from './components/Posts/Posts';
 import About from './widgets/About/About';
 import Tags from './widgets/Tags/Tags';
 import Footer from './components/Footer/Footer';
+import Post from './components/Post/Post';
 
 class App extends Component {
   render() {
@@ -18,9 +19,16 @@ class App extends Component {
         <TopBar />
         <Header />
         <MainNavigation />
-        <Slider />
-        <Featured />
-        <Posts />
+        <Switch>
+          <Route exact path="/" render={() => (
+            <Fragment>
+              <Slider />
+              <Featured />
+              <Posts />
+            </Fragment>
+          )} />
+          <Route path="/:category/:slug" component={Post} />
+        </Switch>
         <About />
         <Tags />
         <Footer />

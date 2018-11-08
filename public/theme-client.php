@@ -16,6 +16,10 @@ class ThemeClient {
             'methods' => 'GET',
             'callback' => [$this, 'get_posts']
         ));
+        register_rest_route( 'theme', '/posts/(?P<slug>.+)', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_post']
+        ));
         register_rest_route( 'theme', '/settings', array(
             'methods' => 'GET',
             'callback' => [$this, 'get_settings']
@@ -52,36 +56,54 @@ class ThemeClient {
         $menus = wp_get_nav_menus();
         return $menus;
     }
-
+    /* GET all posts
+     *
+     */
     public function get_posts( $request ) {
         $parameters = $request->get_params();
         $args = array(
             'posts_per_page'   => -1,
             'orderby'          => 'date',
-            'order'            => 'ASC'
+            'order'            => 'DESC'
         );
         if ( $parameters ) {
             $args['tag'] = $parameters['tag'];
         }
         $posts = get_posts($args);
-        $posts_filters = ['ID', 'post_title', 'post_content', 'comment_status', 'post_date', 'post_modified','post_status', 'post_name', 'url'];
+        $posts_filters = ['ID', 'post_title', 'comment_status', 'post_date', 'post_modified','post_status', 'post_name', 'url'];
         $posts = self::normalize_item($posts, $posts_filters);
-        $posts = array_map(function($item) {
-            $thumbnail = parse_url(get_the_post_thumbnail_url($item['ID'], 'thumbnail'))['path'];
-            $featured_image = parse_url(get_the_post_thumbnail_url($item['ID'], 'large'))['path'];
-            $url = parse_url(get_permalink($item['ID']))['path'];
-            $excerpt = get_the_excerpt($item['ID']);
-            $categories = get_the_category($item['ID']);
-            $categories_filters = ['term_id', 'name', 'slug', 'term_taxonomy_id'];
-            $categories = self::normalize_item($categories, $categories_filters);
-            $item['thumbnail'] = $thumbnail;
-            $item['featured_image'] = $featured_image;
-            $item['url'] = $url;
-            $item['excerpt'] = $excerpt;
-            $item['categories'] = $categories;
-            return $item;
+        $posts = array_map(function($post) {
+            return self::populate_post($post);
         }, $posts);
         return $posts;
+    }
+    /* GET post by slug */
+    public function get_post( $request ) {
+        $parameters = $request->get_params();
+        $post = get_page_by_path($parameters['slug'], OBJECT, 'post');
+        $post_filters = ['ID', 'post_title', 'post_content', 'comment_status', 'post_date', 'post_modified','post_status', 'post_name', 'url'];
+        $post = self::filter_items($post, $post_filters);
+        $post = self::populate_post($post);
+        return $post;
+    }
+
+    static function populate_post($post) {
+        $featured_media = [
+            "thumbnail" => parse_url(get_the_post_thumbnail_url($post['ID'], 'thumbnail'))['path'],
+            "medium" => parse_url(get_the_post_thumbnail_url($post['ID'], 'medium'))['path'],
+            "large" => parse_url(get_the_post_thumbnail_url($post['ID'], 'large'))['path'],
+            "full" => parse_url(get_the_post_thumbnail_url($post['ID'], 'full'))['path'],
+        ];
+        $url = parse_url(get_permalink($post['ID']))['path'];
+        $excerpt = get_the_excerpt($post['ID']);
+        $categories = get_the_category($post['ID']);
+        $categories_filters = ['term_id', 'name', 'slug', 'term_taxonomy_id'];
+        $categories = self::normalize_item($categories, $categories_filters);
+        $post['featured_media'] = $featured_media;
+        $post['url'] = $url;
+        $post['excerpt'] = $excerpt;
+        $post['categories'] = $categories;
+        return $post;
     }
     
     static function normalize_item( $items, $filters ) {
@@ -97,6 +119,19 @@ class ThemeClient {
             }
             return $filtered;
         }, $items);
+    }
+
+    static function filter_items($item, $filters) {
+        $filtered = [];
+        foreach( $filters as $filter ) {
+            if ( $filter === 'url' ) {
+                $path = parse_url($item->$filter)['path'];
+                $filtered[$filter] = $path ? $path : $item->$filter;
+            } else {
+                $filtered[$filter] = $item->$filter;   
+            }
+        }
+        return $filtered;
     }
     
 }
