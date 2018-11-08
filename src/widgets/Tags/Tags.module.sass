@@ -1,10 +1,11 @@
 @import "../../index"
 .container
+  grid-area: tags
+.list
   @extend %list
   display: flex
   flex-flow: row wrap
   justify-content: space-around
-  grid-area: tags
 .tag
   border: 2px solid var(--border-pink)
   padding: 4px 6px

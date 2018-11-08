@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './About.module.sass';
+import Title from '../../modules/Title/Title';
 
 class About extends Component {
   state = {
@@ -17,6 +18,7 @@ class About extends Component {
     const { authorImage } = this.state;
     return (
       <article className={styles.container}>
+        <Title>About</Title>
         <Link to="/o-mnie">
           <img className={styles.image} src={authorImage} alt="avatar"/>
         </Link>

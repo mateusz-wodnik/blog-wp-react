@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Featured.module.sass';
 import Post from './components/Post';
+import Title from '../../modules/Title/Title';
 
 class Featured extends Component {
   state = {
@@ -19,9 +20,12 @@ class Featured extends Component {
   render() {
     const { featured } = this.state;
     return (
-      <ul className={styles.container}>
-        {featured.map(item => <Post {...item} />)}
-      </ul>
+      <section className={styles.container}>
+        <Title>Featured</Title>
+        <ul className={styles.list}>
+          {featured.map(item => <Post {...item} />)}
+        </ul>
+      </section>
     )
   }
 }
