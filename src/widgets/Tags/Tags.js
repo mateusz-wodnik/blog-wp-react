@@ -18,9 +18,7 @@ class Tags extends Component {
     return (
       <ul className={styles.container}>
         {tags.map(tag => (
-          <li>
-            <Link className={styles.tag} to={tag.link}>{tag.name}</Link>
-          </li>
+          <li className={styles.tag}><Link to={tag.link}>{tag.name}</Link></li>
         ))}
       </ul>
     )

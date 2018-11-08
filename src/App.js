@@ -9,6 +9,7 @@ import Slider from './components/Slider/Slider';
 import Posts from './components/Posts/Posts';
 import About from './widgets/About/About';
 import Tags from './widgets/Tags/Tags';
+import Footer from './components/Footer/Footer';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
         <Posts />
         <About />
         <Tags />
+        <Footer />
       </div>
     );
   }

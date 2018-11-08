@@ -1,3 +1,23 @@
+@import "../../index"
 .container
-.logo
-  width: 90%
+  @extend %list
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-around
+.tag
+  border: 2px solid var(--border-pink)
+  padding: 4px 6px
+  border-radius: 6px
+  margin-right: 20px
+  margin-bottom: 10px
+  font-size: 0.8em
+  transition: 0.2s
+  cursor: pointer
+  &:hover
+    background: var(--border-pink)
+    a
+      color: #ffffff
+  a
+    transition: inherit
+    color: var(--text-primary)
+    text-transform: uppercase

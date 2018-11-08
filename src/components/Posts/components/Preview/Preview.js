@@ -7,15 +7,17 @@ const Preview = ({
 }) => (
   <li className={styles.container}>
     <ul className={styles.categories}>
-      {categories.map(category => <li className={styles.category}><Link to={category.slug}>{category.name}</Link></li>)}
+      {categories.map(category => <li><Link className={styles.category} to={category.slug}>{category.name}</Link></li>)}
     </ul>
-    <h5>{post_title}</h5>
-    <time>{post_date}</time>
+    <h2 className={styles.title}>{post_title}</h2>
+    <time className={styles.date}>{post_date}</time>
     <img className={styles.image} src={`http://localhost${featured_image}`} alt="posts"/>
-    <p>{excerpt}</p>
+    {/*<p className={styles.excerpt}>{excerpt}</p>*/}
     <footer className={styles.bottom}>
-      socials
-      comments
+      <ul className={styles.socials}>
+        <li className={styles.social}>socials</li>
+      </ul>
+      <Link to={`${url}#comments`}>comments</Link>
     </footer>
   </li>
 );

@@ -1,3 +1,15 @@
 .container
-.logo
+  display: flex
+  flex-flow: column
+  align-items: center
+  text-align: center
+.image
   width: 90%
+  border-radius: 50%
+  margin-bottom: 40px
+  filter: blur(0.7px)
+  transition: 0.3s
+  &:hover
+    filter: blur(0)
+.text
+  max-width: 50%

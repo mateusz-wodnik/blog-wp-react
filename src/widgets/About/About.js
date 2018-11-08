@@ -18,8 +18,9 @@ class About extends Component {
     return (
       <article className={styles.container}>
         <Link to="/o-mnie">
-          <img className={styles.logo} src={authorImage} alt="avatar"/>
+          <img className={styles.image} src={authorImage} alt="avatar"/>
         </Link>
+        <p className={styles.text}>Elo elo 350. Jestem Gosia. Twoja najlepsza blogerka modowa ever! </p>
       </article>
     )
   }

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './TopBar.module.sass';
 import Search from '../../widgets/Search/Search';
+import Socials from '../../widgets/Socials/Socials';
 
 class TopBar extends Component {
   state = {
     name: '',
     description: '',
-    social: [],
   };
 
   componentDidMount() {
@@ -18,10 +18,6 @@ class TopBar extends Component {
         this.setState({ name, description });
       })
       .catch(console.error);
-    fetch('http://localhost/wp-json/theme/menus?slug=social')
-      .then(res => res.json())
-      .then(social => this.setState({ social }))
-      .catch(console.error);
   }
 
   render() {
@@ -29,7 +25,7 @@ class TopBar extends Component {
     return (
       <article className={styles.container}>
         <span className={styles.description}>{description}</span>
-        {social.map(item => <a href={item.url} className={styles.social}>{item.title}</a>)}
+        <Socials />
         <Search />
       </article>
     )
