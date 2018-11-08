@@ -1,0 +1,28 @@
+%grid {
+  grid-template-areas:
+    "nav"
+    "top"
+    "header"
+    "slider"
+    "featured"
+    "posts"
+    "about"
+    "tags"
+    "footer";
+}
+
+@media (min-width: 756px) {
+  %grid {
+    grid-template-areas:
+      "top top"
+      "header header"
+      "nav nav"
+      "slider slider"
+      "featured featured"
+      "posts about"
+      "posts tags"
+      "posts sidebar"
+      "footer footer";
+    grid-template-columns: 2fr 1fr;
+  }
+}
