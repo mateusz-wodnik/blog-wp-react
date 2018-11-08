@@ -57,11 +57,11 @@ class Slider extends Component {
     const { slider, position } = this.state;
     return (
       <article className={styles.container}>
-        <button onClick={this.handleSlide} name="left" className={`${styles.btn} ${styles.left}`}>left</button>
+        <button onClick={this.handleSlide} name="left" className={`${styles.btn} ${styles.left}`}>{"<"}</button>
         <ul ref={this.slider} className={styles.slider} style={{ transform: `translateX(${position}%)` }}>
           {slider.map(item => <Slide {...item} />)}
         </ul>
-        <button onClick={this.handleSlide} name="right" className={`${styles.btn} ${styles.right}`}>right</button>
+        <button onClick={this.handleSlide} name="right" className={`${styles.btn} ${styles.right}`}>{">"}</button>
       </article>
     )
   }

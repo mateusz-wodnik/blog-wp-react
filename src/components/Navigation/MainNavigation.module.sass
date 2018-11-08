@@ -1,1 +1,39 @@
 .container
+  position: sticky
+  z-index: 1000
+  top: 0
+  background: var(--background-primary)
+  order: -1
+.links
+  list-style: none
+  padding: 0
+  margin: 0
+  width: 100%
+  position: absolute
+  background: var(--background-primary)
+  transition: 0.2s
+  transform: translateX(-100%)
+.link
+  color: inherit
+.top
+  display: flex
+  justify-content: space-between
+  box-shadow: 0 0 8px 6px var(--border-primary)
+.toggle
+  font-size: 2em
+.toggleCheckbox
+  appearance: none
+  display: none
+  &:checked ~ .links
+    transform: translateX(0)
+
+
+@media (min-width: 756px)
+  .container
+    order: initial
+  .links
+    position: initial
+    display: flex
+    transform: translateX(0)
+  .top, .toggleCheckbox
+    display: none

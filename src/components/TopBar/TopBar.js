@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './TopBar.module.sass';
+import Search from '../../widgets/Search/Search';
 
 class TopBar extends Component {
   state = {
@@ -27,8 +28,9 @@ class TopBar extends Component {
     const { name, description, social } = this.state;
     return (
       <article className={styles.container}>
-        <p>{description}</p>
-        {social.map(item => <a href={item.url}>{item.title}</a>)}
+        <span className={styles.description}>{description}</span>
+        {social.map(item => <a href={item.url} className={styles.social}>{item.title}</a>)}
+        <Search />
       </article>
     )
   }

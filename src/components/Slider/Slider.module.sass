@@ -1,15 +1,26 @@
 .container
   position: relative
+  display: flex
+  align-items: center
 .slider
   display: flex
   margin: 0
   padding: 0
   list-style: none
   overflow: hidden
+  align-items: center
+  width: 100%
 .btn
   position: absolute
   z-index: 1
-  top: 0
+  background: 0
+  border: 1px solid var(--border-primary)
+  color: var(--text-faded)
+  mix-blend-mode: difference
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 2em
 .left
   left: 0
 .right
