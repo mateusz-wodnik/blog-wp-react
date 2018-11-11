@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './Posts.module.sass';
 import Preview from './components/Preview/Preview';
 import Title from '../../modules/Title/Title';
+import List from './components/List/List';
 
 class Posts extends Component {
   state = {
@@ -18,14 +19,7 @@ class Posts extends Component {
 
   render() {
     const { posts } = this.state;
-    return (
-      <section className={styles.container}>
-        <Title>Posts</Title>
-        <ul className={styles.list}>
-          {posts.map(item => <Preview {...item} />)}
-        </ul>
-      </section>
-    )
+    return <List posts={posts} />
   }
 }
 

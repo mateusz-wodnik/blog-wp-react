@@ -11,6 +11,7 @@ import About from './widgets/About/About';
 import Tags from './widgets/Tags/Tags';
 import Footer from './components/Footer/Footer';
 import Page from './components/Page/Page';
+import Search from './components/Search/Search';
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
               <Posts />
             </Fragment>
           )} />
+          <Route exact path="/search/:query" component={Search} />
           <Route exact path="/:category/:slug" component={Page} />
           <Route exact path="/:slug" component={Page} />
         </Switch>

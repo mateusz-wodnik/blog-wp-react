@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './MainNavigation.module.sass';
-import Search from '../../widgets/Search/Search';
+import Form from '../Search/components/Form/Form';
 
 class MainNavigation extends Component {
   state = {
@@ -18,12 +18,11 @@ class MainNavigation extends Component {
 
   render() {
     const { menu } = this.state;
-    console.log(menu)
     return (
       <nav className={styles.container}>
         <div className={styles.top}>
           <label className={styles.toggle} htmlFor="toggleCheckbox">toggle</label>
-          <Search />
+          <Form />
         </div>
         <input id="toggleCheckbox" type="checkbox" className={styles.toggleCheckbox} />
         <ul className={styles.links}>

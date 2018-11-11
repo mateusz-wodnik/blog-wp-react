@@ -58,9 +58,14 @@ class ThemeClient {
         $parameters = $request->get_params();
         wp_parse_str( $parameters['search'], $search_query );
         // Search by keyword!!
-        $search = new WP_Query( ['s' => 'siema'] );
-
-        return $parameters;
+        $posts = new WP_Query( ['s' => $parameters['query']] );
+        $posts = $posts->posts;
+        $posts_filters = ['ID', 'post_title', 'comment_status', 'post_date', 'post_modified','post_status', 'post_name', 'url'];
+        $posts = self::normalize_item($posts, $posts_filters);
+        $posts = array_map(function($post) {
+            return self::populate_post($post);
+        }, $posts);
+        return $posts;
     }
 
     public function get_widget( $request ) {

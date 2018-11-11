@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './Socials.module.sass';
 
 class Socials extends Component {
@@ -15,7 +14,6 @@ class Socials extends Component {
   }
   render() {
     const { social } = this.state;
-    console.log(social)
     const { className } = this.props;
     return social.map(item => <a href={item.url} className={`${styles.social} ${item.title} ${className}`} />)
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './TopBar.module.sass';
-import Search from '../../widgets/Search/Search';
+import SearchForm from '../Search/components/Form/Form';
 import Socials from '../../widgets/Socials/Socials';
 
 class TopBar extends Component {
@@ -26,7 +26,7 @@ class TopBar extends Component {
       <article id="top" className={styles.container}>
         <span className={styles.description}>{description}</span>
         <Socials />
-        <Search />
+        <SearchForm className={styles.search} />
       </article>
     )
   }

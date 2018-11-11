@@ -16,10 +16,10 @@ const Preview = ({
     </Link>
     {/*<p className={styles.excerpt}>{excerpt}</p>*/}
     <footer className={styles.bottom}>
-      <ul className={styles.socials}>
-        <li className={styles.social}>socials</li>
-      </ul>
-      <Link to={`${url}#comments`}>comments</Link>
+      {/*<ul className={styles.socials}>*/}
+        {/*<li className={styles.social}>socials</li>*/}
+      {/*</ul>*/}
+      <Link to={`${url}#comments`} className={styles.comments}>comments</Link>
     </footer>
   </li>
 );
