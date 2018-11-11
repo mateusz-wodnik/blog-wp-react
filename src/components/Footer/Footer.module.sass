@@ -1,13 +1,23 @@
 .container
   display: flex
-  flex-flow: row wrap
-  justify-content: center
+  flex-flow: column
+  justify-content: space-between
+  align-items: center
   grid-area: footer
+  text-align: center
 .rights
   color: var(--text-faded)
 .privacy
   color: var(--text-primary)
 .socials
-  width: 100%
   display: flex
   justify-content: center
+  align-items: center
+  font-size: 2em
+
+
+@media (min-width: 548px)
+  .container
+    flex-flow: row
+  .rights
+    margin: 0

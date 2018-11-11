@@ -23,7 +23,7 @@ class TopBar extends Component {
   render() {
     const { name, description, social } = this.state;
     return (
-      <article className={styles.container}>
+      <article id="top" className={styles.container}>
         <span className={styles.description}>{description}</span>
         <Socials />
         <Search />

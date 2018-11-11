@@ -10,7 +10,6 @@ import Posts from './components/Posts/Posts';
 import About from './widgets/About/About';
 import Tags from './widgets/Tags/Tags';
 import Footer from './components/Footer/Footer';
-import Post from './components/Post/Post';
 import Page from './components/Page/Page';
 
 class App extends Component {
@@ -28,10 +27,8 @@ class App extends Component {
               <Posts />
             </Fragment>
           )} />
-          <Route exact path="/:category/:slug" component={Post} />
-          <Route exact path="/polityka-prywatnosci" component={Page} />
-          <Route exact path="/o-mnie" component={Page} />
-          <Route exact path="/polityka-prywatnosci" component={Page} />
+          <Route exact path="/:category/:slug" component={Page} />
+          <Route exact path="/:slug" component={Page} />
         </Switch>
         <About />
         <Tags />

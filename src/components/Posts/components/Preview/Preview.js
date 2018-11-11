@@ -11,7 +11,9 @@ const Preview = ({
     </ul>
     <h2 className={styles.title}>{post_title}</h2>
     <time className={styles.date}>{post_date}</time>
-    <img className={styles.image} src={`http://localhost${featured_media['large']}`} alt="posts"/>
+    <Link to={url} className={styles.image}>
+      <img src={`http://localhost${featured_media['large']}`} alt="posts"/>
+    </Link>
     {/*<p className={styles.excerpt}>{excerpt}</p>*/}
     <footer className={styles.bottom}>
       <ul className={styles.socials}>
