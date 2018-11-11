@@ -9,19 +9,20 @@ class Tags extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost/wp-json/wp/v2/tags')
+    fetch('http://localhost/wp-json/theme/sidebar/tags')
       .then(res => res.json())
-      .then(tags => this.setState({ tags }))
+      .then(widget => this.setState({ ...widget }))
       .catch(console.error)
   }
   render() {
-    const { tags } = this.state;
+    const { tags, title, text } = this.state;
     return (
       <section className={styles.container}>
-        <Title>Tags</Title>
+        <Title>{title}</Title>
+        <p className={styles.text}>{text}</p>
         <ul className={styles.list}>
           {tags.map(tag => (
-            <li className={styles.tag}><Link to={tag.link}>{tag.name}</Link></li>
+            <li className={styles.tag}><Link to={tag.url}>{tag.name}</Link></li>
           ))}
         </ul>
       </section>

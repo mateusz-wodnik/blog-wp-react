@@ -6,7 +6,7 @@ import Post from '../../Post';
 const Header = ({
   post_title, post_name, post_date, post_modified, url, featured_media, categories,
 }) => (
-  <header id={post_name} className={styles.container} style={{ backgroundImage: `url(http://localhost${featured_media['large']})` }}>
+  <header id={post_name} className={styles.container} style={{ backgroundImage: featured_media['large'] && `url(http://localhost${featured_media['large']})` }}>
     {console.log(featured_media)}
     <div className={styles.box}>
       <h2 className={styles.title}>{post_title}</h2>

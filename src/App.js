@@ -11,6 +11,7 @@ import About from './widgets/About/About';
 import Tags from './widgets/Tags/Tags';
 import Footer from './components/Footer/Footer';
 import Post from './components/Post/Post';
+import Page from './components/Page/Page';
 
 class App extends Component {
   render() {
@@ -27,7 +28,10 @@ class App extends Component {
               <Posts />
             </Fragment>
           )} />
-          <Route path="/:category/:slug" component={Post} />
+          <Route exact path="/:category/:slug" component={Post} />
+          <Route exact path="/polityka-prywatnosci" component={Page} />
+          <Route exact path="/o-mnie" component={Page} />
+          <Route exact path="/polityka-prywatnosci" component={Page} />
         </Switch>
         <About />
         <Tags />

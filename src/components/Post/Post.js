@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styles from './Post.module.sass';
 import Header from './components/Header/Header';
-import Content from './components/Content/Content';
+import Content from '../../modules/Content/Content';
 
 class Post extends Component {
   state = {

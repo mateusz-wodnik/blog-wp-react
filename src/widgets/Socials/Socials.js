@@ -8,15 +8,16 @@ class Socials extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost/wp-json/theme/menus?slug=social')
+    fetch('http://localhost/wp-json/theme/menus/social')
       .then(res => res.json())
       .then(social => this.setState({ social }))
       .catch(console.error);
   }
   render() {
     const { social } = this.state;
+    console.log(social)
     const { className } = this.props;
-    return social.map(item => <a href={item.url} className={`${styles.social} ${className}`}>{item.title}</a>)
+    return social.map(item => <a href={item.url} className={`${styles.social} ${item.title} ${className}`} />)
   }
 }
 

@@ -12,6 +12,10 @@ class ThemeClient {
             'methods' => 'GET',
             'callback' => [$this, 'get_menus']
         ));
+        register_rest_route( 'theme', '/menus/(?P<slug>.+)', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_menu']
+        ));
         register_rest_route( 'theme', '/posts', array(
             'methods' => 'GET',
             'callback' => [$this, 'get_posts']
@@ -24,6 +28,72 @@ class ThemeClient {
             'methods' => 'GET',
             'callback' => [$this, 'get_settings']
         ));
+        register_rest_route( 'theme', '/pages', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_pages']
+        ));
+        register_rest_route( 'theme', '/pages/(?P<slug>.+)', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_page']
+        ));
+        register_rest_route( 'theme', '/tags', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_tags']
+        ));
+        register_rest_route( 'theme', '/sidebar', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_sidebar']
+        ));
+        register_rest_route( 'theme', '/sidebar/(?P<widget>.+)', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_widget']
+        ));
+        register_rest_route( 'theme', '/search/(?P<query>.+)', array(
+            'methods' => 'GET',
+            'callback' => [$this, 'get_search']
+        ));
+    }
+
+    public function get_search( $request ) {
+        $parameters = $request->get_params();
+        wp_parse_str( $parameters['search'], $search_query );
+        // Search by keyword!!
+        $search = new WP_Query( ['s' => 'siema'] );
+
+        return $parameters;
+    }
+
+    public function get_widget( $request ) {
+        $widgets = wp_get_sidebars_widgets()['theme-sidebar'];
+        $parameters = $request->get_params();
+        $name = $parameters['widget'];
+        foreach ($widgets as $key => $value) {
+            $name_id = explode('-', $value);
+            if ($name_id[0] === 'theme_' . $name) {
+                $name = $name_id;
+            }
+        }
+        $widget = get_option('widget_' . $name[0])[$name[1]];
+        if ($widget['image']) {
+            $widget['image'] = wp_get_attachment_image_url($widget['image'], 'thumbnail');
+        }
+        return $widget;
+    }
+
+    public function get_sidebar( $requset ) {
+
+        $widgets = wp_get_sidebars_widgets();
+        // $sidebar = wp_get_widget_defaults();
+        // $tag_cloud = get_option('widget_text');
+        // $posts = get_option('widget_recent-posts');
+        // $all_widgets = $GLOBALS['wp_widget_factory'];
+
+        $sidebar = $widgets['theme-sidebar'];
+        $sidebar = array_map(function($name) {
+            $name_id = explode('-', $name);
+            return get_option('widget_' . $name_id[0])[$name_id[1]];
+        }, $sidebar);
+        return $widgets;
     }
 
     public function get_settings() {
@@ -36,26 +106,83 @@ class ThemeClient {
         $custom_logo_id = get_theme_mod( 'custom_logo' );
         $logo = wp_get_attachment_image_url( $custom_logo_id , 'full' );
         if ( has_custom_logo() ) {
-                $imgPath = ABSPATH.substr(parse_url($logo)['path'], 1);
-                header('Content-Type:'.'image/jpg');
-                return readfile($imgPath);
+            $imgPath = ABSPATH.substr(parse_url($logo)['path'], 1);
+            header('Content-Type:'.'image/jpg');
+            return readfile($imgPath);
         } else {
-                return get_bloginfo( 'name' );
+            return get_bloginfo( 'name' );
         }
+    }
+
+    public function get_tags( $request ) {
+        $parameters = $request->get_params();
+        $tags = get_tags();
+        $tags = array_map(function($tag) {
+            $tag->url = parse_url(get_tag_link($tag->term_id))['path'];
+            return $tag;
+        }, $tags);
+        return $tags;
     }
 
     public function get_menus( $request ) {
         $parameters = $request->get_params();
-        if ( $parameters ) {
-            $filters = ['ID', 'title', 'type', 'object', 'menu_item_parent', 'menu_order', 'url'];
-            $items = wp_get_nav_menu_items($parameters['slug']);
-            $filtered = self::normalize_item($items, $filters);
-            
-            return $filtered;
-        }
         $menus = wp_get_nav_menus();
         return $menus;
     }
+
+    public function get_menu( $request ) {
+        $parameters = $request->get_params();
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'DESC',
+            'output' => 'ARRAY_B'
+        );
+        $menu = wp_get_nav_menu_items($parameters['slug'], $args);
+        $filters = ['ID', 'title', 'type', 'object', 'menu_item_parent', 'menu_order', 'url'];
+        $menu = self::normalize_item($menu, $filters);
+        $result = [];
+        for ($x = 0; $x <= count($menu) - 1; $x++) {
+            $parent = $menu[$x]['menu_item_parent'];
+            if($parent) {
+                $keyToAppend = array_search($parent, array_column($menu, 'ID'));
+                $menu[$keyToAppend]['childrens'][] = $menu[$x];
+            } else {
+                $result[] = $menu[$x];
+            }
+        }
+        return $result;
+    }
+
+    /* GET all pages
+     *
+     */
+    public function get_pages( $request ) {
+        $parameters = $request->get_params();
+        $args = array(
+            'post_status' => 'publish'
+        );
+        if ( $parameters ) {
+            $args['tag'] = $parameters['tag'];
+        }
+        $pages = get_pages( $args );
+        $pages_filters = ['ID', 'post_title', 'post_date', 'post_content', 'post_modified','post_status', 'post_name', 'url'];
+        $pages = self::normalize_item($pages, $pages_filters);
+        $pages = array_map(function($post) {
+            return self::populate_post($post);
+        }, $pages);
+        return $pages;
+    }
+
+    /* GET page by slug */
+    public function get_page( $request ) {
+        $parameters = $request->get_params();
+        $page = get_page_by_path($parameters['slug'], OBJECT, 'page');
+        $post_filters = ['ID', 'post_title', 'post_content', 'comment_status', 'post_date', 'post_modified','post_status', 'post_name', 'url'];
+        $post = self::filter_items($post, $post_filters);
+        $post = self::populate_post($post);
+        return $page;
+    }
+
     /* GET all posts
      *
      */
@@ -64,7 +191,8 @@ class ThemeClient {
         $args = array(
             'posts_per_page'   => -1,
             'orderby'          => 'date',
-            'order'            => 'DESC'
+            'order'            => 'DESC',
+            'post_status'      => 'publish'
         );
         if ( $parameters ) {
             $args['tag'] = $parameters['tag'];

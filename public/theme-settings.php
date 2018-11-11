@@ -143,9 +143,17 @@ class MySettingsPage {
         );
     }
     public function header_image_callback() {
-        vprintf('<input type="text" value="%s" hidden id="author_image" name="theme_settings[author_image]" max="" min="1" step="1">
-                 <button class="set_custom_images button">Set Image ID</button>
-                 <img src="%s" id="author_image" />',
+        vprintf('
+            <input
+                type="text"
+                value="%s"
+                hidden
+                id="author_image"
+                name="theme_settings[author_image]"
+            >
+            <img src="%s" id="author_image" />
+            <button class="set_custom_images button">Set Image ID</button>
+            ',
             isset( $this->options['author_image'] ) ? [esc_attr( $this->options['author_image']), wp_get_attachment_image_url($this->options['author_image'])] : ['theme_settings', 'mordo']
         );
     }

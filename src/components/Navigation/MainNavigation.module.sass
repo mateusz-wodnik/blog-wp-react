@@ -1,20 +1,46 @@
+@import '../../index'
 .container
   position: sticky
   z-index: 1000
   top: 0
   background: var(--background-primary)
   grid-area: nav
+.parent
+  display: flex
+  justify-content: space-between
 .links
-  list-style: none
-  padding: 0
-  margin: 0
+  @extend %list
   width: 100%
+  height: calc(100vh - 56px)
   position: absolute
   background: var(--background-primary)
   transition: 0.2s
   transform: translateX(-100%)
+  //&:hover > .item
+  //  opacity: 0.5
+
 .link
   color: inherit
+  padding: 10px
+.item
+  @extend %title
+  padding-right: 10px
+  position: relative
+  display: flex
+  flex-flow: column
+  .nested
+    @extend %list
+    margin-left: 20px
+    white-space: nowrap
+.nested
+  left: 100%
+  top: 0
+  z-index: 1
+  margin-left: 10px
+  .item
+    background: var(--background-pink)
+    color: #ffffff
+/*********************************/
 .top
   display: flex
   justify-content: space-between
@@ -31,9 +57,40 @@
 @media (min-width: 756px)
   .container
     order: initial
+    display: flex
+    justify-content: center
   .links
+    height: initial
+    width: initial
     position: initial
     display: flex
     transform: translateX(0)
+    &:hover > .item
+      opacity: 0.5
+    & > .item:not(:last-child)
+      padding-right: 20px
+  .flat
+    & > .nested
+      position: absolute
+      top: 100%
+      left: 0
+  .item
+    &:hover
+      opacity: 1!important
+    &:hover > .nested
+      display: initial
+  .nested
+    width: initial
+    min-width: 100%
+    display: none
+    position: absolute
+    border-left: 5px solid white
+    margin-left: 0!important
+    .item
+      margin-top: 5px
+      padding: 10px 20px
+    &:hover > .item
+      opacity: 0.5
+
   .top, .toggleCheckbox
     display: none

@@ -5,24 +5,27 @@ import Title from '../../modules/Title/Title';
 
 class About extends Component {
   state = {
-    authorImage: '',
+    title: '',
+    text: '',
+    image: '',
+    url: '',
   };
 
   componentDidMount() {
-    fetch('http://localhost/wp-json/theme/settings')
+    fetch('http://localhost/wp-json/theme/sidebar/about')
       .then(res => res.json())
-      .then(settings => this.setState({ authorImage: settings.author_image }))
+      .then(about => this.setState({ ...about }))
       .catch(console.error)
   }
   render() {
-    const { authorImage } = this.state;
+    const { title, text, image, url } = this.state;
     return (
       <article className={styles.container}>
-        <Title>About</Title>
-        <Link to="/o-mnie">
-          <img className={styles.image} src={authorImage} alt="avatar"/>
+        <Title>{title}</Title>
+        <Link to={url || ''}>
+          <img className={styles.image} src={image} alt="author"/>
         </Link>
-        <p className={styles.text}>Elo elo 350. Jestem Gosia. Twoja najlepsza blogerka modowa ever! </p>
+        <p className={styles.text}>{text}</p>
       </article>
     )
   }

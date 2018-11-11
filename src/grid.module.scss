@@ -11,6 +11,21 @@
     "footer";
 }
 
+@media (min-width: 756px) {
+  %grid {
+    grid-template-areas:
+            "top"
+            "header"
+            "nav"
+            "slider"
+            "featured"
+            "posts"
+            "about"
+            "tags"
+            "footer";
+  }
+}
+
 @media (min-width: 992px) {
   %grid {
     grid-template-areas:
