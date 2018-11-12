@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './TopBar.module.sass';
 import SearchForm from '../Search/components/Form/Form';
 import Socials from '../../widgets/Socials/Socials';
@@ -22,7 +21,7 @@ class TopBar extends Component {
   }
 
   render() {
-    const { name, description, social } = this.state;
+    const { description } = this.state;
     return (
       <article id="top" className={styles.container}>
         <span className={styles.description}>{description}</span>

@@ -7,7 +7,7 @@ const List = ({ posts, title }) => (
   <section className={styles.container}>
     <Title>{title}</Title>
     <ul className={styles.list}>
-      {posts.map(item => <Preview {...item} />)}
+      {posts.map(item => <Preview key={item.ID} {...item} />)}
     </ul>
   </section>
 );

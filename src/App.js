@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import styles from './App.module.sass';
 import MainNavigation from './components/Navigation/MainNavigation';
 import Header from './components/Header/Header';

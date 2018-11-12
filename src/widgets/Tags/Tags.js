@@ -23,7 +23,7 @@ class Tags extends Component {
         <p className={styles.text}>{text}</p>
         <ul className={styles.list}>
           {tags.map(tag => (
-            <li className={styles.tag}><Link to={`/search?tag=${tag.slug}`}>{tag.name}</Link></li>
+            <li key={tag.name} className={styles.tag}><Link to={`/search?tag=${tag.slug}`}>{tag.name}</Link></li>
           ))}
         </ul>
       </section>

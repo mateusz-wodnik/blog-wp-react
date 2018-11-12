@@ -16,7 +16,15 @@ class Socials extends Component {
   render() {
     const { social } = this.state;
     const { className } = this.props;
-    return social.map(item => <a href={item.url} className={`${styles.social} ${item.title} ${className}`} />)
+    return social.map(item => (
+      <a
+        key={item.ID}
+        href={item.url}
+        title={item.title}
+        aria-label={item.title}
+        className={`${styles.social} ${item.title} ${className}`}
+      />
+    ))
   }
 }
 

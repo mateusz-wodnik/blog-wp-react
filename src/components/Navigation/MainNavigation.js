@@ -27,7 +27,7 @@ class MainNavigation extends Component {
         </div>
         <input id="toggleCheckbox" type="checkbox" className={styles.toggleCheckbox} />
         <ul className={styles.links}>
-          {menu.map((item, idx) => <Menu item={item} className={`${styles.flat}`} order={'even'} />)}
+          {menu.map(item => <Menu key={item.ID} item={item} className={`${styles.flat}`} order={'even'} />)}
         </ul>
       </nav>
     )
@@ -35,11 +35,11 @@ class MainNavigation extends Component {
 }
 
 const Menu = ({ item, className, order }) => (
-  <li className={`${styles.item} ${className} ${item.childrens ? styles.parent : ''}`}>
+  <li key={item.ID} className={`${styles.item} ${className} ${item.childrens ? styles.parent : ''}`}>
     <Link className={styles.link} to={item.object === 'category' ? `/category?category_name=${item.url}` : item.url}>{item.title}</Link>
     {!!item.childrens && (
       <ul className={`${styles.nested}`}>
-        {item.childrens.map(children => <Menu item={children} order={order === 'even' ? 'odd' : 'even'} />)}
+        {item.childrens.map(children => <Menu key={children.ID}  item={children} order={order === 'even' ? 'odd' : 'even'} />)}
       </ul>
     )}
   </li>

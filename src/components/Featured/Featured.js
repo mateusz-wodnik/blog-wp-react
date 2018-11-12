@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './Featured.module.sass';
 import Post from './components/Post';
 import Title from '../../modules/Title/Title';
@@ -24,7 +23,7 @@ class Featured extends Component {
       <section className={styles.container}>
         <Title>Featured</Title>
         <ul className={styles.list}>
-          {featured.map(item => <Post {...item} />)}
+          {featured.map(item => <Post key={item.ID} {...item} />)}
         </ul>
       </section>
     )

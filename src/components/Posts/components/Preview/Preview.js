@@ -8,7 +8,7 @@ const Preview = ({
 }) => (
   <li id={post_name} className={styles.container}>
     <ul className={styles.categories}>
-      {categories.map(category => <li><Link className={styles.category} to={category.slug}>{category.name}</Link></li>)}
+      {categories.map(category => <li key={category.name}><Link className={styles.category} to={category.slug}>{category.name}</Link></li>)}
     </ul>
     <h2 className={styles.title}>{post_title}</h2>
     <time className={styles.date}>{post_date}</time>
