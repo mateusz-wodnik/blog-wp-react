@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './Featured.module.sass';
 import Post from './components/Post';
 import Title from '../../modules/Title/Title';
+import {API_URL} from '../../globals';
 
 class Featured extends Component {
   state = {
@@ -10,7 +11,7 @@ class Featured extends Component {
   };
 
   componentDidMount() {
-    const API = "http://localhost/wp-json/theme/";
+    const API = `${API_URL}/wp-json/theme/`;
     fetch(`${API}posts?tag=featured`)
       .then(res => res.json())
       .then(featured => this.setState({ featured }))

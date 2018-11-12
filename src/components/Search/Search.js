@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import List from '../Posts/components/List/List';
+import { API_URL } from '../../globals';
 
 class Search extends Component {
   state = {
@@ -19,7 +20,7 @@ class Search extends Component {
   }
 
   handleSearch = (query) => {
-    const API = "http://localhost/wp-json/theme/";
+    const API = `${API_URL}/wp-json/theme/`;
     fetch(`${API}search${query}`)
       .then(res => res.json())
       .then(posts => this.setState({ posts }))

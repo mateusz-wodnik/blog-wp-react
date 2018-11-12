@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './TopBar.module.sass';
 import SearchForm from '../Search/components/Form/Form';
 import Socials from '../../widgets/Socials/Socials';
+import {API_URL} from '../../globals';
 
 class TopBar extends Component {
   state = {
@@ -11,7 +12,7 @@ class TopBar extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost/wp-json/')
+    fetch(`${API_URL}/wp-json/`)
       .then(res => res.json())
       .then(data => {
         const { name, description } = data;

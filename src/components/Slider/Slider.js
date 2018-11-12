@@ -16,7 +16,7 @@ class Slider extends Component {
   };
 
   componentDidMount() {
-    const API = "http://localhost/wp-json/theme/";
+    const API = "${}/wp-json/theme/";
     fetch(`${API}posts?tag=slider`)
       .then(res => res.json())
       .then(slider => this.setState({ slider }))

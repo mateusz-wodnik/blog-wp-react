@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './MainNavigation.module.sass';
 import Form from '../Search/components/Form/Form';
+import { API_URL } from '../../globals';
 
 class MainNavigation extends Component {
   state = {
@@ -9,7 +10,7 @@ class MainNavigation extends Component {
   };
 
   componentDidMount() {
-    const API = "http://localhost/wp-json/theme/";
+    const API = `${API_URL}/wp-json/theme/`;
     fetch(`${API}menus/main`)
       .then(res => res.json())
       .then(menu => this.setState({ menu }))

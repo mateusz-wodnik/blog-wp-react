@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Content from '../../modules/Content/Content';
 import Header from './Header/Header';
+import {API_URL} from '../../globals';
 
 class Page extends Component {
   state = {
@@ -22,7 +23,7 @@ class Page extends Component {
   }
 
   getPage = (path, type) => {
-    const API = "http://localhost/wp-json/theme/";
+    const API = `${API_URL}/wp-json/theme/`;
     fetch(`${API}${type}/${path}`)
       .then(res => res.json())
       .then(page => this.setState({ ...page }))

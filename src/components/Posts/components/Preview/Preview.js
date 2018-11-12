@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Preview.module.sass';
+import { API_URL } from '../../../../globals';
 
 const Preview = ({
   post_title, post_name, excerpt, post_date, post_modified, url, featured_media, categories,
@@ -12,7 +13,7 @@ const Preview = ({
     <h2 className={styles.title}>{post_title}</h2>
     <time className={styles.date}>{post_date}</time>
     <Link to={url} className={styles.image}>
-      <img src={`http://localhost${featured_media['large']}`} alt="posts"/>
+      <img src={`${API_URL}${featured_media['large']}`} alt="posts"/>
     </Link>
     {/*<p className={styles.excerpt}>{excerpt}</p>*/}
     <footer className={styles.bottom}>
