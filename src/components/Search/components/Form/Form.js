@@ -11,7 +11,7 @@ class Search extends Component {
     e.preventDefault();
     this.setState(state => ({ opened: !state.opened }));
     const input = e.target.query || e.target.form.query;
-    if (input && input.value) this.props.history.push(`/search/${input.value}`);
+    if (input && input.value) this.props.history.push(`/search?s=${input.value}`);
   };
 
   render() {

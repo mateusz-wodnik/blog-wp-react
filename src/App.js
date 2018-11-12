@@ -28,7 +28,8 @@ class App extends Component {
               <Posts />
             </Fragment>
           )} />
-          <Route exact path="/search/:query" component={Search} />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/category" component={Search} />
           <Route exact path="/:category/:slug" component={Page} />
           <Route exact path="/:slug" component={Page} />
         </Switch>

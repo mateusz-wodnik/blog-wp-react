@@ -35,7 +35,7 @@ class MainNavigation extends Component {
 
 const Menu = ({ item, className, order }) => (
   <li className={`${styles.item} ${className} ${item.childrens ? styles.parent : ''}`}>
-    <Link className={styles.link} to={item.url}>{item.title}</Link>
+    <Link className={styles.link} to={item.object === 'category' ? `/category?category_name=${item.url}` : item.url}>{item.title}</Link>
     {!!item.childrens && (
       <ul className={`${styles.nested}`}>
         {item.childrens.map(children => <Menu item={children} order={order === 'even' ? 'odd' : 'even'} />)}

@@ -48,7 +48,7 @@ class ThemeClient {
             'methods' => 'GET',
             'callback' => [$this, 'get_widget']
         ));
-        register_rest_route( 'theme', '/search/(?P<query>.+)', array(
+        register_rest_route( 'theme', '/search', array(
             'methods' => 'GET',
             'callback' => [$this, 'get_search']
         ));
@@ -56,9 +56,8 @@ class ThemeClient {
 
     public function get_search( $request ) {
         $parameters = $request->get_params();
-        wp_parse_str( $parameters['search'], $search_query );
         // Search by keyword!!
-        $posts = new WP_Query( ['s' => $parameters['query']] );
+        $posts = new WP_Query( $parameters );
         $posts = $posts->posts;
         $posts_filters = ['ID', 'post_title', 'comment_status', 'post_date', 'post_modified','post_status', 'post_name', 'url'];
         $posts = self::normalize_item($posts, $posts_filters);
@@ -245,6 +244,10 @@ class ThemeClient {
             foreach( $filters as $filter ) {
                 if ( $filter === 'url' ) {
                     $path = parse_url($item->$filter)['path'];
+                    if($item->object === 'category') {
+                        $tokens = explode('/', $path);
+                        $path =$tokens[sizeof($tokens)-2];
+                    } 
                     $filtered[$filter] = $path ? $path : $item->$filter;
                 } else {
                     $filtered[$filter] = $item->$filter;   

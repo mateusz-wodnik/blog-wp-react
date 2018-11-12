@@ -19,7 +19,7 @@ class Posts extends Component {
 
   render() {
     const { posts } = this.state;
-    return <List posts={posts} />
+    return <List posts={posts} title="posty" />
   }
 }
 

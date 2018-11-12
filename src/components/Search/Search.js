@@ -7,20 +7,20 @@ class Search extends Component {
   };
 
   componentDidMount() {
-    const { match: { params: { query } } } = this.props;
-    this.handleSearch(query);
+    const { location: { search } } = this.props;
+    this.handleSearch(search);
   }
 
   componentDidUpdate(prevProps) {
-    const { match: { params: { query }, url } } = this.props;
-    if(prevProps.match.url !== url) {
-      this.handleSearch(query);
+    const { location: { search } } = this.props;
+    if(prevProps.location.search !== search) {
+      this.handleSearch(search);
     }
   }
 
   handleSearch = (query) => {
     const API = "http://localhost/wp-json/theme/";
-    fetch(`${API}search/${query}`)
+    fetch(`${API}search${query}`)
       .then(res => res.json())
       .then(posts => this.setState({ posts }))
       .catch(console.error);
@@ -28,7 +28,7 @@ class Search extends Component {
 
   render() {
     const { posts } = this.state;
-    return <List posts={posts} />
+    return <List posts={posts} title="wyniki wyszukiwania" />
   }
 }
 
