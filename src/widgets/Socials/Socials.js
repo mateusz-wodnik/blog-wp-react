@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Socials.module.sass';
+import {API_URL} from '../../globals';
 
 class Socials extends Component {
   state = {
@@ -7,7 +8,7 @@ class Socials extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost/wp-json/theme/menus/social')
+    fetch(`${API_URL}/wp-json/theme/menus/social`)
       .then(res => res.json())
       .then(social => this.setState({ social }))
       .catch(console.error);

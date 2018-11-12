@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Tags.module.sass';
 import Title from '../../modules/Title/Title';
+import {API_URL} from '../../globals';
 
 class Tags extends Component {
   state = {
@@ -9,7 +10,7 @@ class Tags extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost/wp-json/theme/sidebar/tags')
+    fetch(`${API_URL}/wp-json/theme/sidebar/tags`)
       .then(res => res.json())
       .then(widget => this.setState({ ...widget }))
       .catch(console.error)
@@ -22,7 +23,7 @@ class Tags extends Component {
         <p className={styles.text}>{text}</p>
         <ul className={styles.list}>
           {tags.map(tag => (
-            <li className={styles.tag}><Link to={`${tag.url}#top`}>{tag.name}</Link></li>
+            <li className={styles.tag}><Link to={`/search?tag=${tag.slug}`}>{tag.name}</Link></li>
           ))}
         </ul>
       </section>

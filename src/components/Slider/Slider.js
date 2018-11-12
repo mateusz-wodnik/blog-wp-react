@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Slider.module.sass';
 import Slide from './components/Slide/Slide';
+import {API_URL} from '../../globals';
 
 class Slider extends Component {
   constructor() {
@@ -16,7 +17,7 @@ class Slider extends Component {
   };
 
   componentDidMount() {
-    const API = "${}/wp-json/theme/";
+    const API = `${API_URL}/wp-json/theme/`;
     fetch(`${API}posts?tag=slider`)
       .then(res => res.json())
       .then(slider => this.setState({ slider }))
