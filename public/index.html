@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html %REACT_APP_LANG%>
+<html>
   <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -23,7 +23,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>%REACT_APP_TITLE%</title>
-    <!--%REACT_APP_HEAD%-->
+    <?php wp_head(); ?>
   </head>
   <body>
     <noscript>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Content from '../../modules/Content/Content';
 import Header from './Header/Header';
 import { StoreConsumer } from '../../Store';
-import { getPageRequest } from './actions';
+import { getPageRequest, setPage } from './actions';
 
 class Page extends Component {
   componentDidMount() {
@@ -16,6 +16,10 @@ class Page extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(setPage({}))
+  }
+
   getPage = () => {
     const { dispatch, match: { params: { slug, category } } } = this.props;
     const type = category ? 'posts' : 'pages';
@@ -24,9 +28,10 @@ class Page extends Component {
   };
 
   handleScroll = () => {
-    document.querySelector('#top').scrollIntoView({
+    const target = document.querySelector('#header') || document.querySelector('#logo');
+    target.scrollIntoView({
       behaviour: 'smooth',
-      block: 'start',
+      block: 'nearest',
       inline: 'center',
     });
   };

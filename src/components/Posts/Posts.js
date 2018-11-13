@@ -12,7 +12,6 @@ class Posts extends Component {
     const {
       posts: { items, loading, error }
     } = this.props;
-    console.log(this.props)
     return loading ? <p>eloeleoleoeo</p> : <List posts={items} title="posty" />
   }
 }

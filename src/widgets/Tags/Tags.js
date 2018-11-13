@@ -9,6 +9,16 @@ class Tags extends Component {
   componentDidMount() {
     getTagsRequest(this.props.dispatch);
   }
+
+  handleScroll = () => {
+    const target = document.querySelector('#header') || document.querySelector('#logo');
+    target.scrollIntoView({
+      behaviour: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
+  };
+
   render() {
     const { tags, title, text } = this.props.widgetTags.item;
     return (
@@ -17,7 +27,7 @@ class Tags extends Component {
         <p className={styles.text}>{text}</p>
         <ul className={styles.list}>
           {tags.map(tag => (
-            <li key={tag.name} className={styles.tag}><Link to={`/search?tag=${tag.slug}`}>{tag.name}</Link></li>
+            <li onClick={this.handleScroll} key={tag.name} className={styles.tag}><Link to={`/search?tag=${tag.slug}`}>{tag.name}</Link></li>
           ))}
         </ul>
       </section>
