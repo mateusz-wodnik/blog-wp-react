@@ -1,44 +1,50 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Wordpress + React blog site
 
-## Available Scripts
+## Description
+This project is using Wordpress as a backend and serves content through customized wordpress REST API. This endpoints are available on `/wp-json/` route.  
+Front-end is created with React.js and contains custom FLUX (Redux like) implementation that takes advantage of React Context API to manage internal application state.  
 
-In the project directory, you can run:
+## Live preview
+http://wp-react.cba.pl/
 
-### `npm start`
+## Important files
+* `public/functions.php` - main Wordpress theme functions
+* `public/theme-client.php` - Wordpress REST API custom routes
+* `public/class-theme-{name}-widget.php` - custom Wordpress widgets
+* `src/grid.module.sass` - primary application grid/skeleton
+* `src/widgets` - Wordpress related widgets
+* `src/modules` - reusable, independent, stateless components
+* `src/components` - main application components
+* `src/Store.js` - main (flux) application store
+* `src/_utils` - reusable Actions and Reducers creators
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Build setup
+This app was developed using:
+* PHP
+* Wordpress
+* ES6
+* CRA
+* React.js
+* SASS (original syntax)
+* CSS Modules
+* HTML5
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+In development project requires to have running server with installed Wordpress.  
+Wordpress permalinks settings have to be set to: `%category%postname%`.
 
-### `npm test`
+```bash
+# To install dev-dependencies, just go to the root folder and run
+yarn install
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# To build server and install Wordpress run
+cd server
+docker-compose up
 
-### `npm run build`
+# To run dev version run
+yarn start
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Before build
+You may have to change Wordpress directory credentials to be able to copy build folder into wordpress/wp-content/themes directory.
+# To build production version run
+yarn build
+```
