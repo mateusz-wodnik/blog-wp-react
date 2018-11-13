@@ -14,7 +14,7 @@ class Navigation extends Component {
   render() {
     const { items: menu } = this.props.navigation;
     return (
-      <nav className={styles.container}>
+      <nav id="navigation" className={styles.container}>
         <div className={styles.top}>
           <label className={styles.toggle} htmlFor="toggleCheckbox">toggle</label>
           <Form />

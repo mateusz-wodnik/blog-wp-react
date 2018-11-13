@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     return (
       <header className={styles.container}>
-        <Link className={styles.logoWrapper} to="/">
+        <Link id="logo" className={styles.logoWrapper} to="/">
           <img className={styles.logo} src={`${API_URL}/wp-json/theme/logo`} alt="logo"/>
         </Link>
       </header>

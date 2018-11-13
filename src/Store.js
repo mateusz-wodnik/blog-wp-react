@@ -57,19 +57,16 @@ class Store extends Component {
   componentDidMount() {}
 
   dispatch = (action) => {
-    console.log(action.type);
     const update = (() => {
       const { state } = this;
       const toUpdate = {};
-      /* eslint-disable */
       for (const reducer in reducers) {
         toUpdate[reducer] = reducers[reducer](state, action);
       }
       return toUpdate;
     })();
     this.setState(state => ({ ...state, ...update }), () => {
-      // Log actual state to console
-      console.log(action.type, this.state)
+      console.log(action)
     });
   };
 
