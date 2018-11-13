@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "sudo cp -r build/* ../wordpress/wp-content/themes/react-blog",
+    "postbuild": "sudo cp -r build/* server/wordpress/wp-content/themes/react-blog",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
