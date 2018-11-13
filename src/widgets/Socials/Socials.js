@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Socials.module.sass';
-import {API_URL} from '../../globals';
+import {StoreConsumer} from '../../Store';
+import {getSocialsRequest} from './actions';
 
 class Socials extends Component {
   state = {
@@ -8,13 +9,10 @@ class Socials extends Component {
   };
 
   componentDidMount() {
-    fetch(`${API_URL}/wp-json/theme/menus/social`)
-      .then(res => res.json())
-      .then(social => this.setState({ social }))
-      .catch(console.error);
+    getSocialsRequest(this.props.dispatch)
   }
   render() {
-    const { social } = this.state;
+    const { items: social } = this.props.widgetSocials;
     const { className } = this.props;
     return social.map(item => (
       <a
@@ -28,4 +26,8 @@ class Socials extends Component {
   }
 }
 
-export default Socials;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <Socials {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));

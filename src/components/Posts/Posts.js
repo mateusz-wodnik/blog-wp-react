@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import List from './components/List/List';
-import { API_URL } from '../../globals';
+import { StoreConsumer } from '../../Store';
+import {getPostsRequest} from './actions';
 
 class Posts extends Component {
-  state = {
-    posts: [],
-  };
-
   componentDidMount() {
-    const API = `${API_URL}/wp-json/theme/`;
-    fetch(`${API}posts`)
-      .then(res => res.json())
-      .then(posts => this.setState({ posts }))
-      .catch(console.error);
+    getPostsRequest(this.props.dispatch)
   }
 
   render() {
-    const { posts } = this.state;
-    return <List posts={posts} title="posty" />
+    const {
+      posts: { items, loading, error }
+    } = this.props;
+    console.log(this.props)
+    return loading ? <p>eloeleoleoeo</p> : <List posts={items} title="posty" />
   }
 }
 
-export default Posts;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <Posts {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));

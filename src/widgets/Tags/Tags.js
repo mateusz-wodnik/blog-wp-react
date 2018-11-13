@@ -2,21 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Tags.module.sass';
 import Title from '../../modules/Title/Title';
-import {API_URL} from '../../globals';
+import {StoreConsumer} from '../../Store';
+import {getTagsRequest} from './actions';
 
 class Tags extends Component {
-  state = {
-    tags: [],
-  };
-
   componentDidMount() {
-    fetch(`${API_URL}/wp-json/theme/sidebar/tags`)
-      .then(res => res.json())
-      .then(widget => this.setState({ ...widget }))
-      .catch(console.error)
+    getTagsRequest(this.props.dispatch);
   }
   render() {
-    const { tags, title, text } = this.state;
+    const { tags, title, text } = this.props.widgetTags.item;
     return (
       <section className={styles.container}>
         <Title>{title}</Title>
@@ -31,4 +25,8 @@ class Tags extends Component {
   }
 }
 
-export default Tags;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <Tags {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));

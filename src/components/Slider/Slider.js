@@ -1,7 +1,8 @@
 import React, { Component, createRef } from 'react';
 import styles from './Slider.module.sass';
 import Slide from './components/Slide/Slide';
-import { API_URL } from '../../globals';
+import {getSliderRequest} from './actions';
+import {StoreConsumer} from '../../Store';
 
 class Slider extends Component {
   constructor() {
@@ -10,17 +11,12 @@ class Slider extends Component {
   }
 
   state = {
-    slider: [],
     position: 0,
     order: 0,
   };
 
   componentDidMount() {
-    const API = `${API_URL}/wp-json/theme/`;
-    fetch(`${API}posts?tag=slider`)
-      .then(res => res.json())
-      .then(slider => this.setState({ slider }))
-      .catch(console.error);
+    getSliderRequest(this.props.dispatch);
   }
 
   handleSlide = (e) => {
@@ -53,12 +49,16 @@ class Slider extends Component {
   };
 
   render() {
-    const { slider, position } = this.state;
+    const {
+      slider: { items, loading, error },
+    } = this.props;
+    const { position, order } = this.state;
     return (
       <article className={styles.container}>
         <button onClick={this.handleSlide} name="left" className={`${styles.btn} ${styles.left}`}>{"<"}</button>
         <ul ref={this.slider} className={styles.slider} style={{ transform: `translateX(${position}%)` }}>
-          {slider.map(item => <Slide key={item.ID} {...item} />)}
+          {items && items.map(item => <Slide key={item.ID} {...item} />)}
+          {loading && <h1>LOADER</h1>}
         </ul>
         <button onClick={this.handleSlide} name="right" className={`${styles.btn} ${styles.right}`}>{">"}</button>
       </article>
@@ -66,4 +66,8 @@ class Slider extends Component {
   }
 }
 
-export default Slider;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <Slider {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));

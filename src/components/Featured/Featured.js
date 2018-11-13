@@ -2,23 +2,16 @@ import React, { Component } from 'react';
 import styles from './Featured.module.sass';
 import Post from './components/Post';
 import Title from '../../modules/Title/Title';
-import {API_URL} from '../../globals';
+import {StoreConsumer} from '../../Store';
+import {getFeaturedRequest} from './actions';
 
 class Featured extends Component {
-  state = {
-    featured: [],
-  };
-
   componentDidMount() {
-    const API = `${API_URL}/wp-json/theme/`;
-    fetch(`${API}posts?tag=featured`)
-      .then(res => res.json())
-      .then(featured => this.setState({ featured }))
-      .catch(console.error);
+    getFeaturedRequest(this.props.dispatch);
   }
 
   render() {
-    const { featured } = this.state;
+    const { items: featured } = this.props.featured;
     return (
       <section className={styles.container}>
         <Title>Featured</Title>
@@ -30,4 +23,9 @@ class Featured extends Component {
   }
 }
 
-export default Featured;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <Featured {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));
+

@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 import { Route, Switch } from 'react-router-dom';
 import styles from './App.module.sass';
-import MainNavigation from './components/Navigation/MainNavigation';
+import Navigation from './components/Navigation/Navigation';
 import Header from './components/Header/Header';
 import TopBar from './components/TopBar/TopBar';
 import Featured from './components/Featured/Featured';
@@ -19,14 +20,14 @@ class App extends Component {
       <div className={styles.container}>
         <TopBar />
         <Header />
-        <MainNavigation />
+        <Navigation />
         <Switch>
           <Route exact path="/" render={() => (
-            <Fragment>
+            <>
               <Slider />
               <Featured />
               <Posts />
-            </Fragment>
+            </>
           )} />
           <Route exact path="/search" component={Search} />
           <Route exact path="/category" component={Search} />
@@ -41,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(module)(App);

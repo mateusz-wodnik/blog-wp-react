@@ -1,33 +1,29 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Content from '../../modules/Content/Content';
 import Header from './Header/Header';
-import {API_URL} from '../../globals';
+import { StoreConsumer } from '../../Store';
+import { getPageRequest } from './actions';
 
 class Page extends Component {
-  state = {
-    post_content: '',
-  };
-
   componentDidMount() {
-    const { match: { params: { slug, category } } } = this.props;
-    const type = category ? 'posts' : 'pages';
-    this.getPage(slug, type);
+    this.getPage();
   }
 
   componentDidUpdate(prevProps) {
-    const { match: { params: { slug, category }, url } } = this.props;
+    const { match: { url } } = this.props;
     if(prevProps.match.url !== url) {
-      const type = category ? 'posts' : 'pages';
-      this.getPage(slug, type);
+      this.getPage();
     }
   }
 
-  getPage = (path, type) => {
-    const API = `${API_URL}/wp-json/theme/`;
-    fetch(`${API}${type}/${path}`)
-      .then(res => res.json())
-      .then(page => this.setState({ ...page }))
-      .catch(console.error);
+  getPage = () => {
+    const { dispatch, match: { params: { slug, category } } } = this.props;
+    const type = category ? 'posts' : 'pages';
+    getPageRequest(dispatch, `${type}/${slug}`);
+    this.handleScroll();
+  };
+
+  handleScroll = () => {
     document.querySelector('#top').scrollIntoView({
       behaviour: 'smooth',
       block: 'start',
@@ -36,15 +32,19 @@ class Page extends Component {
   };
 
   render() {
-    const { post_content, ...page } = this.state;
+    const { post_content, ...page } = this.props.page.item;
     const { match: { params: { category } } } = this.props;
     return (
-      <Fragment>
+      <>
         {category && <Header {...page} />}
         <Content content={post_content} />
-      </Fragment>
+      </>
     )
   }
 }
 
-export default Page;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <Page {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));

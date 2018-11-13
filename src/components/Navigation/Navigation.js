@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './MainNavigation.module.sass';
+import styles from './Navigation.module.sass';
 import Form from '../Search/components/Form/Form';
 import { API_URL } from '../../globals';
+import {getNavigationRequest} from './actions';
+import {StoreConsumer} from '../../Store';
 
-class MainNavigation extends Component {
-  state = {
-    menu: [],
-  };
-
+class Navigation extends Component {
   componentDidMount() {
-    const API = `${API_URL}/wp-json/theme/`;
-    fetch(`${API}menus/main`)
-      .then(res => res.json())
-      .then(menu => this.setState({ menu }))
-      .catch(console.error);
+    getNavigationRequest(this.props.dispatch);
   }
 
   render() {
-    const { menu } = this.state;
+    const { items: menu } = this.props.navigation;
     return (
       <nav className={styles.container}>
         <div className={styles.top}>
@@ -45,4 +39,8 @@ const Menu = ({ item, className, order }) => (
   </li>
 );
 
-export default MainNavigation;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <Navigation {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));

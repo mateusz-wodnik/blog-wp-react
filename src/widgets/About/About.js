@@ -2,24 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './About.module.sass';
 import Title from '../../modules/Title/Title';
-import {API_URL} from '../../globals';
+import {getAboutRequest} from './actions';
+import {StoreConsumer} from '../../Store';
 
 class About extends Component {
-  state = {
-    title: '',
-    text: '',
-    image: '',
-    url: '',
-  };
-
   componentDidMount() {
-    fetch(`${API_URL}/wp-json/theme/sidebar/about`)
-      .then(res => res.json())
-      .then(about => this.setState({ ...about }))
-      .catch(console.error)
+    getAboutRequest(this.props.dispatch)
   }
   render() {
-    const { title, text, image, url } = this.state;
+    const { title, text, image, url } = this.props.widgetAbout.item;
     return (
       <article className={styles.container}>
         <Title>{title}</Title>
@@ -32,4 +23,9 @@ class About extends Component {
   }
 }
 
-export default About;
+export default React.forwardRef((props, ref) => (
+  <StoreConsumer>
+    {context => <About {...props} {...context} ref={ref} />}
+  </StoreConsumer>
+));
+
