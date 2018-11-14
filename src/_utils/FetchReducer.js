@@ -12,7 +12,7 @@ export default function FetchReducerCreator(name) {
         };
 
       default:
-        return state[name];
+        return false;
     }
   };
 }

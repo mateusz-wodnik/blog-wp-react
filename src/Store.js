@@ -56,9 +56,13 @@ class Store extends Component {
   };
 
   componentDidMount() {
-    // Populate data passed within first server response with HTML file
-    const navigation = JSON.parse(document.currentScript.dataset.navigation || '[]');
-    this.setState(state => ({ navigation: { ...state.navigation, items: navigation } }))
+    // // Populate data passed within first server response with HTML file
+    // const data = document.currentScript.dataset;
+    // const navigation = JSON.parse(data.navigation || '[]');
+    // for (let key in data) {
+    //   data[key]
+    // }
+    // this.setState(state => ({ navigation: { ...state.navigation, items: navigation } }))
   }
 
   dispatch = (action) => {
@@ -66,12 +70,13 @@ class Store extends Component {
       const { state } = this;
       const toUpdate = {};
       for (const reducer in reducers) {
-        toUpdate[reducer] = reducers[reducer](state, action);
+        const result = reducers[reducer](state, action)
+        if (result) toUpdate[reducer] = result;
       }
       return toUpdate;
     })();
     this.setState(state => ({ ...state, ...update }), () => {
-      // console.log(action)
+      console.log(action, update)
     });
   };
 
