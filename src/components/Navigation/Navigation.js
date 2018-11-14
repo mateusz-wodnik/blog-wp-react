@@ -8,7 +8,7 @@ import {StoreConsumer} from '../../Store';
 
 class Navigation extends Component {
   componentDidMount() {
-    getNavigationRequest(this.props.dispatch);
+    // getNavigationRequest(this.props.dispatch);
   }
 
   render() {

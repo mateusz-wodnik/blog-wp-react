@@ -1,0 +1,89 @@
+[
+  {
+    "ID": 1998,
+    "title": "Kontakt",
+    "type": "post_type",
+    "object": "page",
+    "menu_item_parent": "0",
+    "menu_order": 9,
+    "url": "\/kontakt\/"
+  },
+  {
+    "ID": 2004,
+    "title": "Lifestyle",
+    "type": "taxonomy",
+    "object": "category",
+    "menu_item_parent": "0",
+    "menu_order": 7,
+    "url": "lifestyle",
+    "childrens": [
+      {
+        "ID": 2005,
+        "title": "Jedzenie",
+        "type": "taxonomy",
+        "object": "category",
+        "menu_item_parent": "2004",
+        "menu_order": 8,
+        "url": "jedzenie"
+      }
+    ]
+  },
+  {
+    "ID": 2002,
+    "title": "Podr\u00f3\u017ce",
+    "type": "taxonomy",
+    "object": "category",
+    "menu_item_parent": "0",
+    "menu_order": 5,
+    "url": "podroze",
+    "childrens": [
+      {
+        "ID": 2003,
+        "title": "Ukraina",
+        "type": "taxonomy",
+        "object": "category",
+        "menu_item_parent": "2002",
+        "menu_order": 6,
+        "url": "ukraina"
+      }
+    ]
+  },
+  {
+    "ID": 1999,
+    "title": "Moda",
+    "type": "taxonomy",
+    "object": "category",
+    "menu_item_parent": "0",
+    "menu_order": 2,
+    "url": "moda",
+    "childrens": [
+      {
+        "ID": 2001,
+        "title": "Dla pa\u0144",
+        "type": "taxonomy",
+        "object": "category",
+        "menu_item_parent": "1999",
+        "menu_order": 4,
+        "url": "dla-pan"
+      },
+      {
+        "ID": 2000,
+        "title": "Dla pan\u00f3w",
+        "type": "taxonomy",
+        "object": "category",
+        "menu_item_parent": "1999",
+        "menu_order": 3,
+        "url": "dla-panow"
+      }
+    ]
+  },
+  {
+    "ID": 1997,
+    "title": "O mnie",
+    "type": "post_type",
+    "object": "page",
+    "menu_item_parent": "0",
+    "menu_order": 1,
+    "url": "\/o-mnie\/"
+  }
+]

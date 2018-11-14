@@ -1,6 +1,7 @@
 import React, { Component, createContext } from 'react';
 import PropTypes from 'prop-types';
 import reducers from './reducers';
+import navigationData from './components/Navigation/navigation.data';
 
 
 const StoreContext = createContext('StoreContext');
@@ -54,7 +55,11 @@ class Store extends Component {
     }
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    // Populate data passed within first server response with HTML file
+    const navigation = JSON.parse(document.currentScript.dataset.navigation || '[]');
+    this.setState(state => ({ navigation: { ...state.navigation, items: navigation } }))
+  }
 
   dispatch = (action) => {
     const update = (() => {
@@ -66,7 +71,7 @@ class Store extends Component {
       return toUpdate;
     })();
     this.setState(state => ({ ...state, ...update }), () => {
-      console.log(action)
+      // console.log(action)
     });
   };
 
