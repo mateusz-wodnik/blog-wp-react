@@ -1,0 +1,14 @@
+{
+  "main.css": "http://localhost/wp-content/themes/react-blog/static/css/main.4a7006a2.chunk.css",
+  "main.js": "http://localhost/wp-content/themes/react-blog/static/js/main.356880cf.chunk.js",
+  "main.js.map": "http://localhost/wp-content/themes/react-blog/static/js/main.356880cf.chunk.js.map",
+  "static/js/1.fa429a59.chunk.js": "http://localhost/wp-content/themes/react-blog/static/js/1.fa429a59.chunk.js",
+  "static/js/1.fa429a59.chunk.js.map": "http://localhost/wp-content/themes/react-blog/static/js/1.fa429a59.chunk.js.map",
+  "runtime~main.js": "http://localhost/wp-content/themes/react-blog/static/js/runtime~main.610186bc.js",
+  "runtime~main.js.map": "http://localhost/wp-content/themes/react-blog/static/js/runtime~main.610186bc.js.map",
+  "static/css/main.4a7006a2.chunk.css.map": "http://localhost/wp-content/themes/react-blog/static/css/main.4a7006a2.chunk.css.map",
+  "static/media/global.sass": "http://localhost/wp-content/themes/react-blog/static/media/facebook.89f104cc.svg",
+  "index.html": "http://localhost/wp-content/themes/react-blog/index.html",
+  "precache-manifest.dddb0a086aa39cd09e4157a0fb961715.js": "http://localhost/wp-content/themes/react-blog/precache-manifest.dddb0a086aa39cd09e4157a0fb961715.js",
+  "service-worker.js": "http://localhost/wp-content/themes/react-blog/service-worker.js"
+}

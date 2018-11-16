@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import styles from './Socials.module.sass';
 import {StoreConsumer} from '../../Store';
-import {getSocialsRequest} from './actions';
+import {getSocialsRequest, setSocials} from './actions';
+import handleFetchComponentMount from '../../_utils/handleFetchComponentMount';
 
 class Socials extends Component {
-  state = {
-    social: [],
-  };
-
   componentDidMount() {
-    getSocialsRequest(this.props.dispatch)
+    // getSocialsRequest(this.props.dispatch)
+    handleFetchComponentMount.bind(this)('social', setSocials, getSocialsRequest)
   }
   render() {
     const { items: social } = this.props.widgetSocials;

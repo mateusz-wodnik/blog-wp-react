@@ -68,16 +68,18 @@ class ThemeClient {
     }
 
     public function get_widget( $request ) {
+        $parameters = is_string($request) ? $request : $request->get_params()['widget'];
         $widgets = wp_get_sidebars_widgets()['theme-sidebar'];
-        $parameters = $request->get_params();
-        $name = $parameters['widget'];
+        $name = $parameters;
+        $id = '';
         foreach ($widgets as $key => $value) {
             $name_id = explode('-', $value);
             if ($name_id[0] === 'theme_' . $name) {
-                $name = $name_id;
+                $name = $name_id[0];
+                $id = $name_id[1];
             }
         }
-        $widget = get_option('widget_' . $name[0])[$name[1]];
+        $widget = get_option('widget_' . $name)[$id];
         if ($widget['image']) {
             $widget['image'] = wp_get_attachment_image_url($widget['image'], 'thumbnail');
         }
@@ -135,13 +137,13 @@ class ThemeClient {
     }
 
     public function get_menu( $request ) {
-        $parameters = $request->get_params();
+        $parameters = is_string($request) ? $request : $request->get_params()['slug'];
         $args = array(
             'orderby' => 'menu_order',
             'order' => 'DESC',
             'output' => 'ARRAY_B'
         );
-        $menu = wp_get_nav_menu_items($parameters['slug'], $args);
+        $menu = wp_get_nav_menu_items($parameters, $args);
         $filters = ['ID', 'title', 'type', 'object', 'menu_item_parent', 'menu_order', 'url'];
         $menu = self::normalize_item($menu, $filters);
         $result = [];
@@ -191,7 +193,7 @@ class ThemeClient {
      *
      */
     public function get_posts( $request ) {
-        $parameters = $request->get_params();
+        $parameters = is_string($request) ? $request : $request->get_params()['tag'];
         $args = array(
             'posts_per_page'   => -1,
             'orderby'          => 'date',
@@ -199,7 +201,7 @@ class ThemeClient {
             'post_status'      => 'publish'
         );
         if ( $parameters ) {
-            $args['tag'] = $parameters['tag'];
+            $args['tag'] = $parameters;
         }
         $posts = get_posts($args);
         $posts_filters = ['ID', 'post_title', 'comment_status', 'post_date', 'post_modified','post_status', 'post_name', 'url'];
@@ -272,5 +274,5 @@ class ThemeClient {
     
 }
 
-$theme_client = new ThemeClient(); 
+$theme_client = new ThemeClient();
 

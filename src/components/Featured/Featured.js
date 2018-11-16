@@ -3,11 +3,13 @@ import styles from './Featured.module.sass';
 import Post from './components/Post';
 import Title from '../../modules/Title/Title';
 import {StoreConsumer} from '../../Store';
-import {getFeaturedRequest} from './actions';
+import {getFeaturedRequest, setFeatured} from './actions';
+import handleFetchComponentMount from '../../_utils/handleFetchComponentMount';
 
 class Featured extends Component {
   componentDidMount() {
-    getFeaturedRequest(this.props.dispatch);
+    // getFeaturedRequest(this.props.dispatch);
+    handleFetchComponentMount.bind(this)('featured', setFeatured, getFeaturedRequest);
   }
 
   render() {

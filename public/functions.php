@@ -55,6 +55,11 @@ function widgets_init() {
 
 add_action( 'widgets_init', 'widgets_init' );
 
+// TODO: add lazy image loading feature
+// Soft crop main image
+add_image_size( 'placeholder', 20, 20 );
+// Hard crop thumbnail
+add_image_size( 'featured-placeholder', 20, 20, true );
 /*
 Custom settings
 */
@@ -63,3 +68,43 @@ include_once('theme-settings.php');
 React Client
 */
 include_once('theme-client.php');
+
+
+class ArrayValue implements JsonSerializable {
+    public function __construct($data) {
+        $this->array = $data;
+    }
+
+    public function jsonSerialize() {
+        return $this->array;
+    }
+}
+
+$menu = $theme_client->get_menu('main');
+$array = new ArrayValue($menu);
+$navigation = htmlentities(json_encode($array->array));
+
+$social = $theme_client->get_menu('social');
+$array = new ArrayValue($social);
+$social = htmlentities(json_encode($array->array));
+
+$featured = $theme_client->get_posts('featured');
+$array = new ArrayValue($featured);
+$featured = htmlentities(json_encode($array->array));
+
+$slider = $theme_client->get_posts('slider');
+$array = new ArrayValue($slider);
+$slider = htmlentities(json_encode($array->array));
+
+$posts = $theme_client->get_posts('');
+$array = new ArrayValue($posts);
+$posts = htmlentities(json_encode($array->array));
+
+$about = $theme_client->get_widget('about');
+$array = new ArrayValue($about);
+$about = htmlentities(json_encode($array->array));
+
+$tags = $theme_client->get_widget('tags');
+$array = new ArrayValue($tags);
+$tags = htmlentities(json_encode($array->array));
+

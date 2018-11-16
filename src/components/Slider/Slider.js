@@ -1,8 +1,9 @@
 import React, { Component, createRef } from 'react';
 import styles from './Slider.module.sass';
 import Slide from './components/Slide/Slide';
-import {getSliderRequest} from './actions';
+import {getSliderRequest, setSlider} from './actions';
 import {StoreConsumer} from '../../Store';
+import handleFetchComponentMount from '../../_utils/handleFetchComponentMount';
 
 class Slider extends Component {
   constructor() {
@@ -16,7 +17,8 @@ class Slider extends Component {
   };
 
   componentDidMount() {
-    getSliderRequest(this.props.dispatch);
+    // getSliderRequest(this.props.dispatch);
+    handleFetchComponentMount.bind(this)('slider', setSlider, getSliderRequest)
   }
 
   handleSlide = (e) => {

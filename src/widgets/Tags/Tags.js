@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import styles from './Tags.module.sass';
 import Title from '../../modules/Title/Title';
 import {StoreConsumer} from '../../Store';
-import {getTagsRequest} from './actions';
+import {getTagsRequest, setTags} from './actions';
+import handleFetchComponentMount from '../../_utils/handleFetchComponentMount';
 
 class Tags extends Component {
   componentDidMount() {
-    getTagsRequest(this.props.dispatch);
+    // getTagsRequest(this.props.dispatch);
+    handleFetchComponentMount.bind(this)('tags', setTags, getTagsRequest)
   }
 
   handleScroll = () => {

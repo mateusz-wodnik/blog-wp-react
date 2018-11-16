@@ -57,7 +57,6 @@ class Store extends Component {
 
   componentDidMount() {
     // // Populate data passed within first server response with HTML file
-    // const data = document.currentScript.dataset;
     // const navigation = JSON.parse(data.navigation || '[]');
     // for (let key in data) {
     //   data[key]

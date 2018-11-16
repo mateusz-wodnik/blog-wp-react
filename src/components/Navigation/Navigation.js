@@ -2,24 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navigation.module.sass';
 import Form from '../Search/components/Form/Form';
-import data from './navigation.data';
-import { API_URL } from '../../globals';
 import {getNavigationRequest, setNavigation} from './actions';
 import {StoreConsumer} from '../../Store';
+import { get } from 'lodash';
+import handleFetchComponentMount from '../../_utils/handleFetchComponentMount';
 
 class Navigation extends Component {
   componentDidMount() {
-    // Populate data passed within first server response with HTML file
-    const navigation = document;
-    console.log(navigation)
-    // const navigation = JSON.parse(data.navigation || '[]');
-    // for (let key in data) {
-    //   data[key]
-    // }
-    // setTimeout(() => {
-      this.props.dispatch(setNavigation(data))
-    // }, 2000)
-    // getNavigationRequest(this.props.dispatch);
+    handleFetchComponentMount.bind(this)('navigation', setNavigation, getNavigationRequest);
   }
 
   render() {

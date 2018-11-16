@@ -40,5 +40,15 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <!--Load data from HTML-->
+    <script
+            data-navigation='<?php echo $navigation; ?>'
+            data-featured='<?php echo $featured; ?>'
+            data-slider='<?php echo $slider; ?>'
+            data-social='<?php echo $social; ?>'
+            data-tags='<?php echo $tags; ?>'
+            data-about='<?php echo $about; ?>'
+            data-posts='<?php echo $posts; ?>'
+    ></script>
   </body>
 </html>

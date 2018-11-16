@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './About.module.sass';
 import Title from '../../modules/Title/Title';
-import {getAboutRequest} from './actions';
+import {getAboutRequest, setAbout} from './actions';
 import {StoreConsumer} from '../../Store';
+import handleFetchComponentMount from '../../_utils/handleFetchComponentMount';
 
 class About extends Component {
   componentDidMount() {
-    getAboutRequest(this.props.dispatch)
+    // getAboutRequest(this.props.dispatch)
+    handleFetchComponentMount.bind(this)('about', setAbout, getAboutRequest)
   }
   render() {
     const { title, text, image, url } = this.props.widgetAbout.item;

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import List from './components/List/List';
 import { StoreConsumer } from '../../Store';
-import {getPostsRequest} from './actions';
+import {getPostsRequest, setPosts} from './actions';
+import handleFetchComponentMount from '../../_utils/handleFetchComponentMount';
 
 class Posts extends Component {
   componentDidMount() {
-    getPostsRequest(this.props.dispatch)
+    // getPostsRequest(this.props.dispatch)
+    handleFetchComponentMount.bind(this)('posts', setPosts, getPostsRequest)
   }
 
   render() {
